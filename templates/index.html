@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"/>	
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	</head>
+	<body>
+		<div class="grid-container">
+		  <header class="header">
+			<p id="dash-title">
+				Dashboard PRAVAN 2021
+			</p>
+			<button id="btn_refresh" onclick="loadData()">
+				Actualiser
+			</button>
+		  </header>
+		  <aside class="sidenav">		
+			<div id="logo">
+				<img src="{{url_for('static', filename='img/pie-chart.png')}}" height="40px" width="40px"/>
+				<p style="display:inline">PRAVAN</p>
+			</div>			
+			<div id="menu">
+				<div><p>Summary</p></div>
+				<div><p>Add</p></div>
+				<div><p>Details</p></div>
+				<div><p>Logout</p></div>
+			</div>		
+		  </aside>
+		  <main class="main">
+			<div class="card" id="card1">	
+				<div class="card-header">
+					<p>Résumé de Nombre d'étudiant par spécialité en 2021</p>
+				</div>
+				<div class="card-content" id="cardTable">	
+					<div class="bigNumber" id="specialite1">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber" id="specialite2">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber" id="specialite3">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber" id="specialite4">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber"id="specialite5">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber"id="specialite6">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+					<div class="bigNumber"id="specialite7">
+						<p class="specialiteLabel"></p>
+						<p class="specialitePop"></p>
+					</div>
+				</div>
+			</div>
+			<div class="card" id="card2">	
+				<div class="card-header">
+					<p>Bar Chart: Nombre d'étudiants par Année</p>
+				</div>
+				<div class="card-content">	
+					<canvas id="bar-chart" height="200" width="350"></canvas>
+				</div>				
+			</div>
+			<div class="card" id="card3">	
+				<div class="card-header">
+					<p>Line Chart: Nombre d'etudiant dans chaque spécialité par année</p>
+				</div>
+				<div class="card-content" >
+					<canvas id="line-chart" height="270" width="500"></canvas>
+				</div>
+			</div>
+			<div class="card" id="card4">		
+				<div class="card-header" style="height: 60px;">
+					<p>Doughnut Chart: Moyenne des moyennes des étudiants Par anneé</p>
+				</div>
+				<div class="card-content" >
+					<canvas id="Doughnut-chart" height="200" width="400"></canvas>	
+				</div>
+			</div>
+		  </main>
+		  <footer class="footer"></footer>
+		</div>
+	
+		<script src="{{url_for('static', filename='script.js')}}"></script>
+	</body>
+</html>
