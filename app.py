@@ -153,6 +153,31 @@ def doGetData4():
 					
 	return jsonify(json_data)
 
+
+@app.route('/api/data5')
+def doGetData5():
+	
+ data = {"years":[], "dataF":[], "dataH":[]}
+	
+ conn = mysql.connect()	
+ cursor =conn.cursor()	
+ cursor.execute("SELECT DISTINCT annee FROM resultats")	
+ years_tuple = cursor.fetchall()
+ years_list =  [item[0] for item in years_tuple]
+ data["years"]=years_list	
+	
+ cursor.execute(" select count(*) AS nombre from resultats where sexe='F' group by annee")	
+ 
+ moyEtud_tuple = cursor.fetchall()
+ moyEtud_list =  [item[0] for item in moyEtud_tuple]
+ data["dataF"]=moyEtud_list 
+ cursor.execute(" select count(*) AS nombre from resultats where sexe='H' group by annee")	
+ 
+ moyEtud_tuple = cursor.fetchall()
+ moyEtud_list =  [item[0] for item in moyEtud_tuple]
+ data["dataH"]=moyEtud_list
+ data_JSON = json.dumps(data)	
+ return data_JSON 	
 	
 if __name__ == '__main__':
 	app.run(debug=True, port=5000)

@@ -42,6 +42,16 @@ function loadData(){
 		}
 	};
 	httpRequest4.send();
+
+	httpRequest5 = new XMLHttpRequest();	
+	httpRequest5.open('GET', '/api/data5');
+	httpRequest5.onreadystatechange = function () {
+		if (httpRequest5.readyState === 4 && httpRequest5.status === 200) {
+			jsonData1 = JSON.parse(httpRequest5.response);
+		  update_Gbar(jsonData1);			
+		}
+	};
+	httpRequest5.send();
 }
 
 
@@ -172,7 +182,10 @@ function update_Doughnut(jsonData){
 			text: 'Moyenne des étudiants Par anneé'
 		  },
 		  legend:{
-			position:'right'
+			position:'right',
+			labels: {
+				fontColor: "white"
+			}
 		  },
 			scales: {
 				yAxes: [{
@@ -208,38 +221,77 @@ function update_BigNumbers(jsonData){
 		i++;
 	}
 	
-	// Speed
-	/*const counters = document.querySelectorAll('.bigNumber .regionPop');
-	const speed = 100; // The lower the slower
 	
+}
+
+function update_Gbar(jsonData){
+	var labels = jsonData.years;
 	
-	counters.forEach(counter => {
-		const updateCount = () => {
-			const target = +counter.getAttribute('data-target');
-			const count = +counter.innerText;
-
-			// Lower inc to slow and higher to slow
-			const inc = target / speed;
-
-			 //console.log("--------");
-			 //console.log(inc);
-			 //console.log(count);
-			 //console.log("--------");
-
-			// Check if target is reached
-			if (count < target) {
-				// Add inc to count and output in counter
-				counter.innerText = Math.round(count + inc, 2);
-				// Call function every ms
-				setTimeout(updateCount, 1);
-			} else {
-				counter.innerText = target;
-			}
-		};
-
-		updateCount();
-	});*/
+	// for(d of jsonData.datasets){
+	// 	d.fill = false;				  
+	// 	d.borderColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+	// 	d.borderWidth=2;
+	// 	d.radius=1;			
+	// }			
 	
+	var dataF = jsonData.dataF;
+	var dataH = jsonData.dataH;
+	const DATA_COUNT = 3;
+  //const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 20};
+
+	new Chart(document.getElementById("Gbar-chart"), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [
+				{
+					label: 'F',
+					data: dataF,
+					backgroundColor: "#EC255A",
+					stack: 'Stack 0',
+				},
+				{
+					label: 'H',
+					data: dataH,
+					backgroundColor: "#1C6DD0",
+					stack: 'Stack 1',
+				}]
+		},
+		options: {						
+			tooltips: {
+				displayColors: true,
+				callbacks:{
+					mode: 'x',
+				},
+			},
+			scales: {
+				xAxes: [{
+					stacked: true,
+					gridLines: {
+						display: false,
+					},
+					ticks: {
+						fontColor: "white"
+			  	}
+				}],
+				yAxes: [{
+					stacked: true,
+					ticks: {
+						beginAtZero: true,
+						fontColor: "white"
+					},
+					type: 'linear',
+				}]
+			},
+			responsive: true,
+			maintainAspectRatio: false,
+			legend:{
+				labels: {
+					fontColor: "white"
+				}
+				}
+		}
+	});
 }
 
 
