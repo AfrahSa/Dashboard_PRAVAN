@@ -1,14 +1,12 @@
 loadData();
 
 function loadData(){	
-	// Requ�te AJAX get Persons
 	httpRequest = new XMLHttpRequest();	
 	httpRequest.open('GET', '/api/data');
 	httpRequest.onreadystatechange = function () {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 			jsonData1 = JSON.parse(httpRequest.response);
-			update_Bars(jsonData1);
-		    //update_BigNumbers(jsonData1);			
+			update_Bars(jsonData1);	
 		}
 	};
 	httpRequest.send();
@@ -69,13 +67,11 @@ function update_Bars(jsonData){
 	new Chart(document.getElementById("bar-chart"), {
 		type: 'bar',
 		data: {
-		  //labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
 		  labels: labels,
 		  datasets: [
 			{
 			  label: "Nombre d'étudiants",
-			  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
-			  //data: [2478,5267,734,784,433]
+			  backgroundColor: ["#35589A", "#3FA796","#FFBD35"],
 			  data: data
 			}
 		  ]
@@ -169,7 +165,7 @@ function update_Doughnut(jsonData){
 		  labels: labels,
 		  datasets: [{
 			label: "Moyenne",
-			backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#d3b37e","#c45850","#04293A","#30475E"],
+			backgroundColor: ["#35589A", "#3FA796","#FFBD35"],
 			
 			data: data
 		  }]
@@ -216,7 +212,6 @@ function update_BigNumbers(jsonData){
 		label.innerText = d["specialite"];
 		pop.innerText = d["NbEtudiant"];
 		
-		//pop.setAttribute("data-target", d["population"]);
 		
 		i++;
 	}
@@ -226,19 +221,8 @@ function update_BigNumbers(jsonData){
 
 function update_Gbar(jsonData){
 	var labels = jsonData.years;
-	
-	// for(d of jsonData.datasets){
-	// 	d.fill = false;				  
-	// 	d.borderColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-	// 	d.borderWidth=2;
-	// 	d.radius=1;			
-	// }			
-	
 	var dataF = jsonData.dataF;
 	var dataH = jsonData.dataH;
-	const DATA_COUNT = 3;
-  //const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 20};
-
 	new Chart(document.getElementById("Gbar-chart"), {
 		type: 'bar',
 		data: {
